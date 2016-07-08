@@ -31,18 +31,15 @@ function determineTime(s) {
     
     var time;  //creates a time using the argument sent in the url names s
     
-    if (parseInt(s, 10).isNaN) {// the time is not an integer in the UNIX format
-        time = new Date(s);
-        console.log(" Without parse, s = " + s + "  time = " + time);
+    if (s.match(/[a-z]/i)) {//the url contains a letter, which means it could be a natural date
+         time = new Date(s);
     } else {
-        time = new Date(parseInt(s, 10));
-        console.log("In parse, s = " + s + "  time = " + time);
+         time = new Date(parseInt(s, 10));
     }
+    
  
    if (time == "Invalid Date") {//it is not the correct data
-       
-       console.log("Not valid date format:  "+ s + "   time = " + time);
-       
+     
        returnObject.unix = null;
        returnObject.natural = null;
       
@@ -50,7 +47,6 @@ function determineTime(s) {
     
        returnObject.unix = time.getTime();
        returnObject.natural = createNaturalTime(time);
-    
     }
 }//logic steps to find whether the time is valid
 server.listen(8080);
